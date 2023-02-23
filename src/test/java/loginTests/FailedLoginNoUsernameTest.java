@@ -1,17 +1,17 @@
 package loginTests;
 
 import data.CommonStrings;
+import data.ErrorMessages;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
-import pages.ProductsPage;
 import utils.Comment;
 import utils.DriverUtils;
 
-public class SuccessfullLoginTest {
+public class FailedLoginNoUsernameTest {
     WebDriver driver;
     Comment comment = new Comment();
 
@@ -22,24 +22,20 @@ public class SuccessfullLoginTest {
     }
 
     @Test
-    public void successfullLoginTest() {
+    public void failedLoginNoUsernameTest() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.openLoginPage();
         comment.printStep("opening login page");
-        loginPage.typeToUsername(CommonStrings.STANDARD_USER);
-        comment.printStep("typing username");
+        loginPage.openLoginPage();
+
+        loginPage.typeToUsername("");
         loginPage.typeToPassword(CommonStrings.PASSWORD);
         comment.printStep("typing password");
-        ProductsPage productsPage = loginPage.clickLoginButtonSuccess();
+        Assert.assertEquals(ErrorMessages.NO_CREDS_ERROR, loginPage.clickLoginButtonFail().getErrorMessage());
         comment.printStep("clicking login button");
-
-        Assert.assertTrue(productsPage.verifyProductsPage());
     }
 
     @After
     public void afterTest() {
         DriverUtils.closeDriver(driver);
     }
-
 }
-

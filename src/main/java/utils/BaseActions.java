@@ -52,11 +52,13 @@ public abstract class BaseActions {
         typeToWebElement(locator, text);
     }
 
+    // Returns text from WebElement
     protected String getTextFromWebElement(By locator) {
         WebElement element = waitForWebElement(locator, Time.TIMEOUT_MEDIUM);
         return element.getText();
     }
 
+    // Returns html attribute value based on attribute arg
     protected String getAttributeFromWebElement(By locator, String attribute) {
         WebElement element = waitForWebElement(locator, Time.TIMEOUT_MEDIUM);
         return element.getAttribute(attribute);
