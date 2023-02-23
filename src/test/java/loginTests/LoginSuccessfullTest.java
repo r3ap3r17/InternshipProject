@@ -1,7 +1,6 @@
 package loginTests;
 
 import data.CommonStrings;
-import data.ErrorMessages;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import pages.ProductsPage;
 import utils.Comment;
 import utils.DriverUtils;
 
-public class FailedLoginNoCredsTest {
+public class LoginSuccessfullTest {
     WebDriver driver;
     Comment comment = new Comment();
 
@@ -23,20 +22,24 @@ public class FailedLoginNoCredsTest {
     }
 
     @Test
-    public void failedLoginNoCredsTest() {
+    public void successfullLoginTest() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.openLoginPage();
-        comment.printStep("opening login page");
+        comment.printStep("open login page");
+        loginPage.typeToUsername(CommonStrings.STANDARD_USER);
+        comment.printStep("type username");
+        loginPage.typeToPassword(CommonStrings.PASSWORD);
+        comment.printStep("type password");
+        ProductsPage productsPage = loginPage.clickLoginButtonSuccess();
+        comment.printStep("click login button");
 
-        loginPage.typeToUsername("");
-        loginPage.typeToPassword("");
-
-        Assert.assertEquals(ErrorMessages.NO_CREDS_ERROR, loginPage.clickLoginButtonFail().getErrorMessage());
-        comment.printStep("clicking login button");
+        Assert.assertTrue(productsPage.verifyProductsPage());
     }
 
     @After
     public void afterTest() {
         DriverUtils.closeDriver(driver);
     }
+
 }
+

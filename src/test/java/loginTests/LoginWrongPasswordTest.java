@@ -11,7 +11,7 @@ import pages.LoginPage;
 import utils.Comment;
 import utils.DriverUtils;
 
-public class FailedLoginNoUsernameTest {
+public class LoginWrongPasswordTest {
     WebDriver driver;
     Comment comment = new Comment();
 
@@ -22,16 +22,17 @@ public class FailedLoginNoUsernameTest {
     }
 
     @Test
-    public void failedLoginNoUsernameTest() {
+    public void loginWrongPasswordTest() {
         LoginPage loginPage = new LoginPage(driver);
-        comment.printStep("opening login page");
+        comment.printStep("open login page");
         loginPage.openLoginPage();
 
-        loginPage.typeToUsername("");
-        loginPage.typeToPassword(CommonStrings.PASSWORD);
-        comment.printStep("typing password");
-        Assert.assertEquals(ErrorMessages.NO_CREDS_ERROR, loginPage.clickLoginButtonFail().getErrorMessage());
-        comment.printStep("clicking login button");
+        loginPage.typeToUsername(CommonStrings.STANDARD_USER);
+        comment.printStep("type username");
+        loginPage.typeToPassword(CommonStrings.PASSWORD + "123");
+        comment.printStep("type password");
+        Assert.assertEquals(ErrorMessages.WRONG_PASSWORD_ERROR, loginPage.clickLoginButtonFail().getErrorMessage());
+        comment.printStep("click login button");
     }
 
     @After
