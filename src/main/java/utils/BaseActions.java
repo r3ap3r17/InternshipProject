@@ -28,8 +28,8 @@ public abstract class BaseActions {
 
     // Waits until element is visible | locator
     protected WebElement waitForWebElement(By locator, int time) {
-        WebDriverWait wait = new WebDriverWait(driver, time * 1000);
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        WebDriverWait waitElement = new WebDriverWait(driver, time * 1000);
+        return waitElement.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     protected void clickWebElement(By locator) {
@@ -50,6 +50,16 @@ public abstract class BaseActions {
     public void clearAndTypeToWebElement(By locator, String text) {
         clearFromWebElement(locator);
         typeToWebElement(locator, text);
+    }
+
+    protected String getTextFromWebElement(By locator) {
+        WebElement element = waitForWebElement(locator, Time.TIMEOUT_MEDIUM);
+        return element.getText();
+    }
+
+    protected String getAttributeFromWebElement(By locator, String attribute) {
+        WebElement element = waitForWebElement(locator, Time.TIMEOUT_MEDIUM);
+        return element.getAttribute(attribute);
     }
 
 }

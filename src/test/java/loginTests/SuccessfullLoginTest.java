@@ -1,13 +1,16 @@
+package loginTests;
+
+import data.CommonStrings;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
-import utils.BaseActions;
+import pages.ProductsPage;
 import utils.DriverUtils;
 
-public class ExampleTest {
+public class SuccessfullLoginTest {
     WebDriver driver;
 
     @Before
@@ -17,10 +20,15 @@ public class ExampleTest {
     }
 
     @Test
-    public void exampleTest() throws InterruptedException {
+    public void successfullLoginTest() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.openLoginPage();
-        loginPage.clickLoginButton();
+
+        loginPage.typeToUsername(CommonStrings.STANDARD_USER);
+        loginPage.typeToPassword(CommonStrings.PASSWORD);
+        ProductsPage productsPage = loginPage.clickLoginButtonSuccess();
+
+        Assert.assertTrue(productsPage.verifyProductsPage());
     }
 
     @After
@@ -28,5 +36,5 @@ public class ExampleTest {
         DriverUtils.closeDriver(driver);
     }
 
-
 }
+
