@@ -2,6 +2,7 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverUtils {
@@ -14,6 +15,10 @@ public class DriverUtils {
             case "firefox":
                 System.setProperty("webdriver.gecko.driver", ReadProperties.readConfigFirefoxPath());
                 driver = new FirefoxDriver();
+                break;
+            case "edge":
+                System.setProperty("webdriver.edge.driver", ReadProperties.readConfigEdgePath());
+                driver = new EdgeDriver();
                 break;
             default:
                 System.out.println("Please make sure to provide a valid browser name in 'Configurations.properties' file !");

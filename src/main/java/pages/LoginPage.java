@@ -12,6 +12,8 @@ public class LoginPage extends BaseActions {
     private final By loginButton = By.xpath("//input[@id='login-button']");
     private final By usernameInput = By.xpath("//input[@id='user-name']");
     private final By passwordInput = By.xpath("//input[@id='password']");
+    private final By errorMessageBox = By.xpath("//h3[@data-test='error']");
+
     public LoginPage(WebDriver driver) {
         super(driver);
     }
@@ -30,12 +32,21 @@ public class LoginPage extends BaseActions {
         return new ProductsPage(driver);
     }
 
+    public LoginPage clickLoginButtonFail() {
+        clickWebElement(loginButton);
+        return this;
+    }
+
     public void typeToUsername(String text) {
         clearAndTypeToWebElement(usernameInput, text);
     }
 
     public void typeToPassword(String text) {
         clearAndTypeToWebElement(passwordInput, text);
+    }
+
+    public String getErrorMessage() {
+        return getTextFromWebElement(errorMessageBox);
     }
 
 }
